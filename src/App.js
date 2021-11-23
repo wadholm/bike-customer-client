@@ -8,19 +8,15 @@ import {
 
 import Toolbar from "./components/toolbar/toolbar";
 import Home from "./pages/home";
-// import Update from "./pages/update";
-// import About from "./pages/about";
-// import Texts from "./pages/texts";
-// import Auth from "./pages/auth";
-// import Invite from "./pages/invite";
+import Auth from "./pages/auth";
 
 import { AuthContext } from "./context/authcontext";
 import { useAuth } from "./hooks/authhook";
 
 const App = () => {
   const { token, login, logout, userId, userEmail } = useAuth();
-  // const [texts, setTexts] = useState([]);
-  // const [textsError, setTextsError] = useState(null);
+  const [user, setUser] = useState([]);
+  const [userError, setUserError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,9 +31,9 @@ const App = () => {
       //   if (!response.ok) {
       //     throw new Error(data.message);
       //   }
-      //   setTexts(data);
+      //   setUser(data);
       // } catch (error) {
-      //   setTextsError(error.message);
+      //   setUserError(error.message);
       // }
     };
     if (token) {
@@ -47,18 +43,7 @@ const App = () => {
 
   const authorizedRoutes = (
     <Switch>
-      <Route
-        exact
-        path="/"
-        render={(props) => (
-          <Home
-          // texts={texts}
-          // textsError={textsError}
-          // setTextsError={setTextsError}
-          // setTexts={setTexts}
-          />
-        )}
-      />
+      <Route exact path="/" render={(props) => <Home user={user} />} />
       <Redirect to="/" />
     </Switch>
   );
@@ -84,7 +69,8 @@ const App = () => {
       >
         <Router>
           <Toolbar />
-          {token ? authorizedRoutes : unauthorizedRoutes}
+          {/* {token ? authorizedRoutes : unauthorizedRoutes} */}
+          {authorizedRoutes}
         </Router>
       </AuthContext.Provider>
     </div>

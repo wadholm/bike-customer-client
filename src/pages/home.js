@@ -1,4 +1,6 @@
 import React from "react";
+import Payment from "../components/payment/payment";
+import Travels from "../components/travels/travels";
 
 const Home = (props) => {
   return (
@@ -6,6 +8,8 @@ const Home = (props) => {
       <h3 className="mt-3" data-testid="home">
         Home
       </h3>
+      <Payment />
+      <Travels />
     </>
   );
 };
