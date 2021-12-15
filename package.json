@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
+    "@auth0/auth0-react": "^1.8.0",
     "@ckeditor/ckeditor5-build-classic": "^29.2.0",
     "@ckeditor/ckeditor5-react": "^3.0.2",
     "@codemirror/lang-javascript": "^0.19.2",

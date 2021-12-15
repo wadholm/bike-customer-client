@@ -5,48 +5,83 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import ChangePayment from "./changepayment/changepayment";
 import Refill from "./refill/refill";
 
-const payment_method = "refill";
-
 const Payment = (props) => {
   const [changePayment, setChangePayment] = useState(false);
   const [refill, setRefill] = useState(false);
 
+  const { user, setUser } = props;
+
   return (
     <>
-      <h3 className="mt-3 mb-3">Betalningsmetod</h3>
-      <p>
-        Nuvarande: {payment_method === "monthly" ? "Månadsvis" : "Påfyllning"}
-      </p>
-      {payment_method === "refill" && (
-        <div>
-          <p>Saldo: 20 SEK</p>
+      <h4 className="mt-3 mb-3">Betalningsmetod</h4>
+      {user.payment_method !== "unknown" ? (
+        <>
+          <p>
+            Nuvarande:{" "}
+            {user.payment_method === "monthly" ? "Månadsvis" : "Påfyllning"}
+          </p>
+          {user.payment_method === "refill" && (
+            <div>
+              <p>Saldo: {user.balance} SEK</p>
+              <a
+                href="#"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setRefill(true);
+                }}
+              >
+                Fyll på saldo
+              </a>
+            </div>
+          )}
           <a
             href="#"
             onClick={(event) => {
               event.preventDefault();
-              setRefill(true);
+              setChangePayment(true);
             }}
           >
-            Fyll på saldo
+            Ändra betalningsmetod
           </a>
-        </div>
-      )}
-      <a
-        href="#"
-        onClick={(event) => {
-          event.preventDefault();
-          setChangePayment(true);
-        }}
-      >
-        Ändra betalningsmetod
-      </a>
 
+          <ChangePayment
+            title={"Ändra betalningsmetod"}
+            isOpen={changePayment}
+            currentMethod={user.payment_method}
+            balance={user.balance}
+            cardNumber={user.card_information}
+            toggle={() => setChangePayment(false)}
+            setUser={setUser}
+          />
+          <Refill
+            balance={user.balance}
+            isOpen={refill}
+            toggle={() => setRefill(false)}
+          />
+        </>
+      ) : (
+        <>
+          <p>Ingen nuvarande betalningsmetod.</p>
+          <a
+            href="#"
+            onClick={(event) => {
+              event.preventDefault();
+              setChangePayment(true);
+            }}
+          >
+            Lägg till betalningsmetod
+          </a>
+        </>
+      )}
       <ChangePayment
+        title={"Lägg till betalningsmetod"}
         isOpen={changePayment}
-        currentMethod={payment_method}
+        currentMethod={user.payment_method}
+        balance={user.balance}
+        cardNumber={user.card_information}
         toggle={() => setChangePayment(false)}
+        setUser={setUser}
       />
-      <Refill isOpen={refill} toggle={() => setRefill(false)} />
     </>
   );
 };

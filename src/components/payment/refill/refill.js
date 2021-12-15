@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 // import { AuthContext } from "../../context/authcontext";
 
 const Refill = (props) => {
+  const submitRefill = async () => {};
+
   return (
     <Modal isOpen={props.isOpen} toggle={props.toggle} centered="true">
       <ModalHeader>Fyll på konto</ModalHeader>
