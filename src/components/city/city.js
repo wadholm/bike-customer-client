@@ -10,7 +10,7 @@ const City = (props) => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const saveHandler = () => {
+  const saveHandler = async () => {
     setError(null);
     setLoading(true);
     setSuccess(false);

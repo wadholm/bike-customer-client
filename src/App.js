@@ -5,7 +5,7 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import { GoogleLogin } from "react-google-login";
 
 import Toolbar from "./components/toolbar/toolbar";
 import Home from "./pages/home";
@@ -13,15 +13,9 @@ import Auth from "./pages/auth";
 // import { AuthContext } from "./context/authcontext";
 
 const App = () => {
-  const {
-    loginWithPopup,
-    logout,
-    user,
-    isAuthenticated,
-    getAccessTokenSilently,
-  } = useAuth0();
-  const [loggedIn, setLoggedIn] = useState(false);
-
+  const responseGoogle = (response) => {
+    console.log(response);
+  };
   useEffect(() => {
     // const authenticate = async () => {
     //   try {
@@ -44,7 +38,7 @@ const App = () => {
     //   }
     // };
     // authenticate();
-  }, [isAuthenticated]);
+  }, []);
 
   const authorizedRoutes = (
     <Switch>
@@ -60,17 +54,16 @@ const App = () => {
         exact
         render={(props) => (
           <Auth
-            loginWithPopup={loginWithPopup}
-            logout={logout}
-            user={user}
-            isAuthenticated={isAuthenticated}
+          // loginWithPopup={loginWithPopup}
+          // logout={logout}
+          // user={user}
+          // isAuthenticated={isAuthenticated}
           />
         )}
       />
       <Redirect to="/" />
     </Switch>
   );
-  console.log(isAuthenticated);
 
   return (
     <div className="App container pb-5">
@@ -85,8 +78,8 @@ const App = () => {
         }}
       > */}
       <Router>
-        <Toolbar isAuthenticated={isAuthenticated} logout={logout} />
-        {isAuthenticated ? authorizedRoutes : unauthorizedRoutes}
+        <Toolbar />
+        {1 + 1 == 3 ? authorizedRoutes : unauthorizedRoutes}
       </Router>
       {/* </AuthContext.Provider> */}
     </div>
