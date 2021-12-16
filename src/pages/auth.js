@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { GoogleLogin } from "react-google-login";
+import { Button } from "reactstrap";
 
 const Auth = (props) => {
   const [error, setError] = useState();
@@ -77,7 +78,7 @@ const Auth = (props) => {
         cookiePolicy={"single_host_origin"}
         isSignedIn={true}
       /> */}
-      <div onClick={login}>Logga in</div>
+      <Button onClick={login}>Logga in</Button>
     </div>
   );
 };
