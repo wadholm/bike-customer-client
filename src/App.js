@@ -85,10 +85,10 @@ const App = () => {
         exact
         render={(props) => (
           <Auth
-          // loginWithPopup={loginWithPopup}
-          // logout={logout}
-          user={user}
-          // isAuthenticated={isAuthenticated}
+            // loginWithPopup={loginWithPopup}
+            // logout={logout}
+            user={user}
+            // isAuthenticated={isAuthenticated}
           />
         )}
       />
@@ -110,7 +110,7 @@ const App = () => {
       > */}
       <Router>
         <Toolbar />
-        {1 + 1 == 3 ? authorizedRoutes : unauthorizedRoutes}
+        {token ? authorizedRoutes : unauthorizedRoutes}
       </Router>
       {/* </AuthContext.Provider> */}
     </div>
