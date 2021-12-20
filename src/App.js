@@ -16,6 +16,10 @@ const App = () => {
   const responseGoogle = (response) => {
     console.log(response);
   };
+
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+
   useEffect(() => {
     // const authenticate = async () => {
     //   try {
@@ -38,7 +42,34 @@ const App = () => {
     //   }
     // };
     // authenticate();
+    const authenticate = () => {
+      fetch("http://localhost:1337/auth/login/success", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) return response.json();
+          throw new Error("authentication has been failed!");
+        })
+        .then((resObject) => {
+          // console.log(resObject);
+          setToken(resObject.token);
+          setUser(resObject.user);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    authenticate();
   }, []);
+
+  console.log(user);
+  console.log(token);
 
   const authorizedRoutes = (
     <Switch>
@@ -54,10 +85,10 @@ const App = () => {
         exact
         render={(props) => (
           <Auth
-          // loginWithPopup={loginWithPopup}
-          // logout={logout}
-          // user={user}
-          // isAuthenticated={isAuthenticated}
+            // loginWithPopup={loginWithPopup}
+            // logout={logout}
+            user={user}
+            // isAuthenticated={isAuthenticated}
           />
         )}
       />
@@ -79,7 +110,7 @@ const App = () => {
       > */}
       <Router>
         <Toolbar />
-        {1 + 1 == 3 ? authorizedRoutes : unauthorizedRoutes}
+        {token ? authorizedRoutes : unauthorizedRoutes}
       </Router>
       {/* </AuthContext.Provider> */}
     </div>
