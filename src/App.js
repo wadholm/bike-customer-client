@@ -68,12 +68,12 @@ const App = () => {
     authenticate();
   }, []);
 
-  console.log(user);
-  console.log(token);
+  console.log("User: " + user);
+  console.log("Token: " + token);
 
   const authorizedRoutes = (
     <Switch>
-      <Route exact path="/" render={(props) => <Home />} />
+      <Route exact path="/" render={(props) => <Home user={user}/>} />
       <Redirect to="/" />
     </Switch>
   );
